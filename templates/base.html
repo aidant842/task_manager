@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Import Google Icon Font-->
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <!--Import materialize.css-->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"
+    />
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}" type="text/css">
+  </head>
+  <body>
+    {% block content %} {% endblock %}
+    <!--Import jQuery before materialize.js-->
+    <script
+      type="text/javascript"
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+    <script type="text/javascript">
+
+            
+          $(document).ready(function () {
+            //JQuery for collapisble elements on home page
+            $(".collapsible").collapsible();
+            //JQuery for selection options on add task page
+            $('select').material_select();
+          });
+
+            //JQuery for Date Form on add task page
+          $('.datepicker').pickadate({
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: 15, // Creates a dropdown of 15 years to control year,
+                today: 'Today',
+                clear: 'Clear',
+                close: 'Ok',
+                closeOnSelect: false // Close upon selecting a date,
+                //container: undefined, // ex. 'body' will append picker to body
+          });
+
+            //Fix for display bug in Materialize Date Form 
+          document.getElementById("matfix").addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+    </script>
+  </body>
+</html>
