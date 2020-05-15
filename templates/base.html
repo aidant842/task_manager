@@ -11,10 +11,36 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css"
     />
-    <link rel="stylesheet" href="{{url_for('static', filename = 'css/style.css')}}" type="text/css">
+    <link
+      rel="stylesheet"
+      href="{{url_for('static', filename = 'css/style.css')}}"
+      type="text/css"
+    />
   </head>
+
+  <header>
+    <nav>
+      <div class="nav-wrapper">
+        <a href="{{url_for('get_tasks')}}" class="brand-logo">Task Manager</a>
+        <a href="#" data-activates="mobile-demo" class="button-collapse"><i class="material-icons">menu</i></a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          <li><a href="{{url_for('get_tasks')}}">Home</a></li>
+          <li><a href="{{url_for('add_task')}}">New Task</a></li>
+          <li><a href="{{url_for('get_categories')}}">Manage Categories</a></li>
+        </ul>
+        <ul class="side-nav" id="mobile-demo">
+            <li><a href="{{url_for('get_tasks')}}">Home</a></li>
+            <li><a href="{{url_for('add_task')}}">New Task</a></li>
+            <li><a href="{{url_for('get_categories')}}">Manage Categories</a></li>
+      </ul>
+      </div>
+    </nav>
+  </header>
+
   <body>
-    {% block content %} {% endblock %}
+    <div class="container">
+      {% block content %} {% endblock %}
+    </div>
     <!--Import jQuery before materialize.js-->
     <script
       type="text/javascript"
@@ -23,30 +49,30 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
 
     <script type="text/javascript">
+      $(document).ready(function () {
+        //JQuery for collapisble elements on home page
+        $(".collapsible").collapsible();
+        //JQuery for selection options on add task page
+        $("select").material_select();
+        //JQuery for burger menu for mobile view
+        $(".button-collapse").sideNav();
+      });
 
-            
-          $(document).ready(function () {
-            //JQuery for collapisble elements on home page
-            $(".collapsible").collapsible();
-            //JQuery for selection options on add task page
-            $('select').material_select();
-          });
+      //JQuery for Date Form on add task page
+      $(".datepicker").pickadate({
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 15, // Creates a dropdown of 15 years to control year,
+        today: "Today",
+        clear: "Clear",
+        close: "Ok",
+        closeOnSelect: false, // Close upon selecting a date,
+        //container: undefined, // ex. 'body' will append picker to body
+      });
 
-            //JQuery for Date Form on add task page
-          $('.datepicker').pickadate({
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: 15, // Creates a dropdown of 15 years to control year,
-                today: 'Today',
-                clear: 'Clear',
-                close: 'Ok',
-                closeOnSelect: false // Close upon selecting a date,
-                //container: undefined, // ex. 'body' will append picker to body
-          });
-
-            //Fix for display bug in Materialize Date Form 
-          document.getElementById("matfix").addEventListener("click", function (e) {
-            e.stopPropagation();
-          });
+      //Fix for display bug in Materialize Date Form
+      document.getElementById("matfix").addEventListener("click", function (e) {
+        e.stopPropagation();
+      });
     </script>
   </body>
 </html>
